@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "header.html" %}
+
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center" data-aos="zoom-in" data-aos-delay="100">
+        <h1>PhoMas</h1>
+        <h2>Play with photos</h2>
+        {% if logged_in: %}
+        <a href="{{ url_for('colorizer')}}" class="btn-about">Let's colorize</a>
+        <a href="{{ url_for('sketcher')}}" class="btn-about">Let's sketch</a>
+        <a href="{{ url_for('profile')}}" class="btn-about">Profile</a>
+        {% else %}
+        <h2>Let's Start</h2>
+        <a href="{{ url_for('login')}}" class="btn-about">Login</a>
+        <a href="{{ url_for('register')}}" class="btn-about">Sign Up</a>
+        {% endif %}
+    </div>
+</section><!-- End Hero -->
+
+<!-- ======= Footer ======= -->
+{% include "footer.html" %}
+</html>

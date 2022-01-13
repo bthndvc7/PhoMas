@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+
+<main id="main">
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Profile</h2>
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p style="text-align:center">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% if empty_profile: %}
+            <div class="section-title">
+                <p>Wow, such empty!</p>
+                <a href="{{ url_for('home')}}" class="btn-about">Let's fill here.</a>
+            </div>
+            {% else %}
+
+
+            <div class="section-title">
+                <h3>Colorized Images</h3>
+            </div>
+            <div class="row">
+                {% if colorized_exists: %}
+                {% for image in images: %}
+                {% if image.img_owner == username: %}
+                {% if image.img_output == "colorized": %}
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box iconbox-blue">
+                        <a href="{{ url_for('open_img',filename='colorized_'+image.img_name,file_type='output')}}"
+                           target="_blank"><img
+                                src="static/imgs_out/{{ username }}/colorized_{{ image.img_name }}" alt="Uploaded"
+                                width="256"
+                                height="256"></a>
+                        <div class="col-md-12 col-lg-12 ">
+                            <a href="{{ url_for('delete_img',filename=image.img_name,img_id=image.id, img_type='colorized') }}"
+                               class="delete" style="margin-left:20px"><i class="bi-trash"
+                                                                          style="color:#34b7a7"></i></a>
+                            <a href="{{ url_for('open_img',filename='colorized_'+image.img_name,file_type='output')}}"
+                               class="download" style="margin-left:20px" download="img"><i class="bi-download"
+                                                                                           style="color:#34b7a7"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div class="section-title">
+                    <p>Wow, such empty!</p>
+                    <a href="{{ url_for('colorizer')}}" class="btn-about">Let's colorize.</a>
+                </div>
+                {% endif %}
+            </div>
+
+
+            <div class="section-title mt-5">
+                <h3>Sketched Images</h3>
+            </div>
+
+            <div class="row">
+                {% if sketched_exists: %}
+                {% for image in images: %}
+                {% if image.img_owner == username: %}
+                {% if image.img_output == "sketched": %}
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box iconbox-blue">
+                        <a href="{{ url_for('open_img',filename='sketched_'+image.img_name,file_type='output')}}"
+                           target="_blank"><img
+                                src="static/imgs_out/{{ username }}/sketched_{{ image.img_name }}" alt="Uploaded"
+                                width="256"
+                                height="256"></a>
+                        <div class="col-md-12 col-lg-12 ">
+                            <a href="{{ url_for('delete_img',filename=image.img_name,img_id=image.id,img_type='sketched') }}"
+                               class="delete" style="margin-left:20px"><i class="bi-trash"
+                                                                          style="color:#34b7a7"></i></a>
+                            <a href="{{ url_for('open_img',filename='sketched_'+image.img_name,file_type='output')}}"
+                               class="download" style="margin-left:20px" download="img"><i class="bi-download"
+                                                                                           style="color:#34b7a7"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div class="section-title">
+                    <p>Wow, such empty!</p>
+                    <a href="{{ url_for('sketcher')}}" class="btn-about">Let's sketch.</a>
+                </div>
+                {% endif %}
+            </div>
+
+
+            <div class="section-title mt-5">
+                <h3>Uploads</h3>
+                <p>You can find your uploads here</p>
+            </div>
+
+            <div class="row">
+                {% for image in images: %}
+                {% if image.img_owner == username: %}
+                {% if image.img_output == "original": %}
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box iconbox-blue">
+                        <a href="{{ url_for('open_img',filename=image.img_name,file_type='upload') }}" target="_blank">
+                            <img src="static/uploaded_imgs/{{ username }}/{{ image.img_name }}" alt="Uploaded"
+                                 width="256"
+                                 height="256"></a>
+                        <div class="col-md-12 col-lg-12 ">
+                            <a href="{{ url_for('delete_img',filename=image.img_name,img_id=image.id,img_type='original') }}"
+                               class="delete" style="margin-left:20px"><i class="bi-trash"
+                                                                          style="color:#34b7a7"></i></a>
+                            <a href="{{ url_for('open_img',filename=image.img_name,file_type='output')}}"
+                               class="download" style="margin-left:20px" download="img"><i class="bi-download"
+                                                                                           style="color:#34b7a7"></i></a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 ">
+                            <a href="{{ url_for('colorizer_uploaded',filename=image.img_name)}}" style="margin-right:10px;margin-top:10px">Colorize</a>
+                            <a href="{{ url_for('sketcher_uploaded',filename=image.img_name)}}" class="btn-about">Sketch</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+    </section><!-- End Services Section -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+{% include "footer.html" %}
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "header.html" %}
+
+
+<main id="main">
+    <section>
+        <div class="section-title">
+                <h4><a href="{{ url_for('login')}}" class="btn-about"> Login to get started</a></h4>
+                <a href="{{ url_for('register')}}" class="btn-about"> Sign Up </a>
+        </div>
+    </section>
+    <section>
+        <div class="section-title">
+            <div class="row">
+                <div class="column">
+                    <h4> Image</h4>
+                    <img src="static/img/0_RdPUay-F2l6VIIFV.jpeg" alt="Uploaded" width="500" height="600">
+                </div>
+                <div class="column">
+                    <h4> Sketched </h4>
+                    <img src="static/img/sketched_0_RdPUay-F2l6VIIFV.jpeg" alt="Output" width="500" height="600">
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main><!-- End #main -->
+
+{% include "footer.html" %}
+</html>

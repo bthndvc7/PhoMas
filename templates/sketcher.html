@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+{% include "header.html" %}
+
+<main id="main">
+    <section>
+        <div class="section-title">
+            <form method=post enctype=multipart/form-data>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <input type=file name=file>
+                <input type=submit name=submit>
+            </form>
+        </div>
+    </section>
+
+    {% if filename: %}
+    <section>
+        <div class="section-title">
+            <div class="row">
+                <div class="column">
+                    <h4> Uploaded image</h4>
+                    <img src="static/uploaded_imgs/{{ username }}/{{ filename }}" alt="Uploaded" width="500"
+                         height="600">
+                </div>
+                <div class="column">
+                    <h4> Sketched </h4>
+                    <img src="static/imgs_out/{{ username }}/sketched_{{ filename }}" alt="Output" width="500"
+                         height="600">
+                </div>
+            </div>
+
+        </div>
+    </section>
+    {% else %}
+    <section>
+        <div class="section-title">
+            <div class="row">
+                <div class="column">
+                    <h4> Image</h4>
+                    <img src="static/img/0_RdPUay-F2l6VIIFV.jpeg" alt="Uploaded" width="500" height="600">
+                </div>
+                <div class="column">
+                    <h4> Sketched </h4>
+                    <img src="static/img/sketched_0_RdPUay-F2l6VIIFV.jpeg" alt="Output" width="500" height="600">
+                </div>
+            </div>
+
+        </div>
+    </section>
+    {% endif %}
+</main><!-- End #main -->
+
+{% include "footer.html" %}
+
+</html>

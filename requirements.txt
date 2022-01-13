@@ -1,0 +1,12 @@
+torch~=1.10.0
+skimage
+numpy~=1.21.4
+matplotlib~=3.5.0
+argparse~=1.4.0
+PIL
+Flask~=2.0.2
+Werkzeug~=2.0.2
+Pillow~=8.4.0
+scikit-image~=0.18.3
+ipython~=7.30.0
+opencv-python~=4.5.4.60
