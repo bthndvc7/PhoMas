@@ -1,15 +1,13 @@
-import fnmatch
-import random
-import string
-
-from flask import Flask, render_template, url_for, flash, abort, request, redirect, session, current_app, send_from_directory
 import os
+
+from flask import Flask, render_template, url_for, flash, request, redirect, session, current_app, send_from_directory
+from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+
 from colorize import Colorizer
 from sketch import Sketcher
-from werkzeug.utils import secure_filename
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from werkzeug.security import generate_password_hash, check_password_hash
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
