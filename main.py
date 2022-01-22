@@ -160,7 +160,7 @@ def colorizer():
                 db.session.add(original_image)
                 db.session.commit()
             else:
-                flash("You already uploaded this image! If you think you don't then change your image name.")
+                flash("You already uploaded selected image! If you think you don't then change your image name.")
                 return redirect(url_for('profile'))
 
     return render_template("colorizer.html", username=current_username,
@@ -171,17 +171,22 @@ def colorizer():
 @login_required
 def colorizer_uploaded(filename):
     current_username = "%s" % session['username']
-    lets_colorize = Colorizer(username=current_username, filename=filename)
-    lets_colorize.colorize()
-    new_image = Images(
-        img_owner=current_username,
-        img_name=filename,
-        img_output="colorized"
-    )
-    db.session.add(new_image)
-    db.session.commit()
+    user_folder = os.path.join(f'static/uploaded_imgs/', current_username)
+    if not os.path.exists(f'{user_folder}/{filename}'):
+        lets_colorize = Colorizer(username=current_username, filename=filename)
+        lets_colorize.colorize()
+        new_image = Images(
+            img_owner=current_username,
+            img_name=filename,
+            img_output="colorized"
+        )
+        db.session.add(new_image)
+        db.session.commit()
 
-    return redirect(url_for('profile'))
+        return redirect(url_for('profile'))
+    else:
+        flash("You already colorized selected image! Please take a look at 'Colorized Images' section.")
+        return redirect(url_for('profile'))
 
 
 @app.route('/sketcher', methods=['GET', 'POST'])
@@ -221,7 +226,7 @@ def sketcher():
                 db.session.add(original_image)
                 db.session.commit()
             else:
-                flash("You already uploaded this image! If you think you don't then change your image name.")
+                flash("You already uploaded selected image! If you think you don't then change your image name.")
                 return redirect(url_for('profile'))
 
     return render_template("sketcher.html", username=current_username,
@@ -232,16 +237,21 @@ def sketcher():
 @login_required
 def sketcher_uploaded(filename):
     current_username = "%s" % session['username']
-    lets_sketch = Sketcher(username=current_username, filename=filename)
-    lets_sketch.sketch()
-    new_image = Images(
-        img_owner=current_username,
-        img_name=filename,
-        img_output="sketched"
-    )
-    db.session.add(new_image)
-    db.session.commit()
-    return redirect(url_for('profile'))
+    user_folder = os.path.join(f'static/uploaded_imgs/', current_username)
+    if not os.path.exists(f'{user_folder}/{filename}'):
+        lets_sketch = Sketcher(username=current_username, filename=filename)
+        lets_sketch.sketch()
+        new_image = Images(
+            img_owner=current_username,
+            img_name=filename,
+            img_output="sketched"
+        )
+        db.session.add(new_image)
+        db.session.commit()
+        return redirect(url_for('profile'))
+    else:
+        flash("You already sketched selected image! Please take a look at 'Sketched Images' section.")
+        return redirect(url_for('profile'))
 
 
 @app.route('/profile', methods=['GET', 'POST'])
